@@ -74,7 +74,7 @@ app.UseAuthorization();
 
 // GET endpoint where IHelloService and ClaimsPrincipal and injected by dependency no needs to use anymore [FromServices] attribute
 // ClaimsPrincipal is automatically injected
-app.MapGet("/Hello", ([FromQuery] bool? isHappy, IHelloService service, ClaimsPrincipal user) =>
+app.MapGet("/Hello", (bool? isHappy, IHelloService service, ClaimsPrincipal user) =>
 {
     if (isHappy is null)
         return Results.BadRequest("Please tell if you are happy or not :-)");
