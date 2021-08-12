@@ -1,7 +1,7 @@
 # aspnetcore-minimal-api
 Example of a minimal API and some basics features:
 
-Adding Swagger doc
+Swagger doc
 
 Authentication
 
