@@ -1,7 +1,4 @@
 // Configure services
-using Microsoft.AspNetCore.Http;
-using System.Net;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthentication(options =>
@@ -75,7 +72,10 @@ app.UseCors(p =>
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/Hello", ([FromQuery] bool? isHappy, IHelloService service, ClaimsPrincipal user) =>
+// GET endpoint where IHelloService and ClaimsPrincipal and injected by dependency no needs to use anymore [FromServices] attribute
+// ClaimsPrincipal is automatically injected
+app.MapGet("/Hello", (bool? isHappy, IHelloService service, ClaimsPrincipal user) =>
+
 {
     if (isHappy is null)
         return Results.BadRequest("Please tell if you are happy or not :-)");
