@@ -3,8 +3,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme =
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
     options.Authority = "https://login.microsoftonline.com/xxxxxxxxxxxxxxxxxxxxxxxxxx";
@@ -72,13 +72,12 @@ app.UseCors(p =>
 app.UseAuthentication();
 app.UseAuthorization();
 
-// GET endpoint where IHelloService and ClaimsPrincipal and injected by dependency no needs to use anymore [FromServices] attribute
+// GET endpoint where IHelloService and ClaimsPrincipal are injected by dependency no needs to use anymore [FromServices] attribute
 // ClaimsPrincipal is automatically injected
 app.MapGet("/Hello", (bool? isHappy, IHelloService service, ClaimsPrincipal user) =>
 
 {
-    if (isHappy is null)
-        return Results.BadRequest("Please tell if you are happy or not :-)");
+    if (isHappy is null) { return Results.BadRequest("Please say if you are happy or not :-)"); }
 
     return Results.Ok(service.Hello(user, (bool)isHappy));
 })
